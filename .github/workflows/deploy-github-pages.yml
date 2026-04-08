@@ -27,7 +27,8 @@ jobs:
           node-version: '22'
           cache: npm
 
-      - run: npm ci
+      # npm ci can fail across OS/npm versions on optional native deps; install is fine for this app
+      - run: npm install
 
       - name: Build
         run: npm run build
