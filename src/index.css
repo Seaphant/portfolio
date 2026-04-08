@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+/* GitHub-primitives dark palette (canvas / elevated / border / fg) */
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+
+  --color-gh-canvas: #0d1117;
+  --color-gh-inset: #010409;
+  --color-gh-elevated: #161b22;
+  --color-gh-elevated-2: #21262d;
+  --color-gh-border: #30363d;
+  --color-gh-fg: #e6edf3;
+  --color-gh-muted: #8b949e;
+  --color-gh-subtle: #6e7681;
+  --color-gh-accent: #58a6ff;
+  --color-gh-accent-muted: #388bfd;
+  --color-gh-accent-hover: #79c0ff;
+  --color-gh-success: #238636;
+  --color-gh-success-hover: #2ea043;
+
+  /* Map “neutral” to GitHub-like steps so existing utilities stay on-brand */
+  --color-neutral-950: #0d1117;
+  --color-neutral-900: #161b22;
+  --color-neutral-800: #21262d;
+  --color-neutral-700: #30363d;
+  --color-neutral-600: #484f58;
+  --color-neutral-500: #6e7681;
+  --color-neutral-400: #8b949e;
+  --color-neutral-300: #b1bac4;
+  --color-neutral-200: #c9d1d9;
+  --color-neutral-100: #d8dee4;
+  --color-neutral-50: #f0f6fc;
+
+  --color-accent: #58a6ff;
+  --color-accent-hover: #79c0ff;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-gh-canvas);
+  color: var(--color-neutral-200);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background-color: color-mix(in srgb, var(--color-gh-accent) 35%, transparent);
+}
