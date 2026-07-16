@@ -1,0 +1,32 @@
+artifacts = ["/app/report.json"]
+
+[task]
+name = "dynamo/log-report"
+description = "Parse an Apache-style access log into a small JSON summary report."
+
+[metadata]
+category = "data_processing_and_etl"
+subcategory = "text_processing"
+task_objective = ["analyze", "generate"]
+artifact_type = ["document_or_report", "generated_output_artifact"]
+expert_time_estimate_hours = 0.3
+model_tested = "GPT-5.4"
+agent_tested = "Terminus-2"
+difficulty_explanation = "This small synthetic access log is representative of routine observability data. The task requires correctly recognizing Apache-style fields, ignoring blank lines, extracting client IPs and request paths, aggregating counts, and emitting an exact JSON schema. Common mistakes include counting blank lines, parsing the quoted request incorrectly, or producing the wrong keys or value types; software and data engineers perform this kind of log summarization in monitoring and reporting workflows."
+solution_explanation = "Read /app/access.log line by line, strip whitespace, and skip blank lines. Count each remaining line as one request, add the first whitespace-separated field to a set of client IPs, and extract the path from the quoted HTTP request field. Count paths with a frequency map, choose the most frequent path, and serialize total_requests, the number of unique IPs, and top_path as JSON to /app/report.json."
+verification_explanation = "Five atomic pytest tests correspond one-to-one with the five numbered success criteria. They verify that /app/report.json exists; that it is a JSON object with exactly the required keys and value types; and that total_requests, unique_ips, and top_path equal values independently derived from /app/access.log. tests/test.sh runs the preinstalled pytest and CTRF plugin, writes /logs/verifier/ctrf.json, and writes 1 or 0 to /logs/verifier/reward.txt according to the pytest result."
+
+[verifier]
+timeout_sec = 120.0
+
+[agent]
+timeout_sec = 120.0
+
+[environment]
+build_timeout_sec = 600.0
+cpus = 1
+memory_mb = 2048
+storage_mb = 10240
+gpus = 0
+allow_internet = true
+mcp_servers = []
